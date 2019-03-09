@@ -5,3 +5,9 @@ authors = ["k-nasa <htilcs1115@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+syn = { version = "0.15.28", features = ["full"] }
+proc-macro2 = "0.4.27"
+quote = "0.6"
+
+[lib]
+proc_macro = true
