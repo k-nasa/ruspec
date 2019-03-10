@@ -8,6 +8,7 @@ edition = "2018"
 syn = { version = "0.15.28", features = ["full"] }
 proc-macro2 = "0.4.27"
 quote = "0.6"
+failure = "0.1.5"
 
 [lib]
 proc_macro = true
