@@ -1,5 +1,6 @@
 use self::Keyword::*;
 use crate::types::{Callbacks, Container, DescribeStatement, Test};
+use inflector::cases::snakecase::to_snake_case;
 use proc_macro2::{TokenStream, TokenTree};
 
 type DescribeStatements = Vec<DescribeStatement>;
@@ -88,7 +89,7 @@ impl Parser {
         self.next_token();
 
         let name = if let Some(TokenTree::Literal(literal)) = self.clone().current_token {
-            literal.to_string()
+            to_snake_case(&literal.to_string())
         } else {
             failure::bail!("not found expected it string")
         };
@@ -106,7 +107,7 @@ impl Parser {
     fn parse_describe_statement(&mut self) -> Result<DescribeStatement, failure::Error> {
         self.next_token();
         let name = if let Some(TokenTree::Literal(literal)) = self.clone().current_token {
-            literal.to_string()
+            to_snake_case(&literal.to_string())
         } else {
             failure::bail!("not found expected describe string")
         };
@@ -212,19 +213,19 @@ mod tests {
     #[test]
     fn should_perse_describe() {
         let input = str_to_ts(
-            r###"describe "testname" {
+            r###"describe "test name" {
             it "hoge"{}
         }"###,
         );
         let mut parser = Parser::new(input);
 
         let expected = DescribeStatement {
-            name: String::from("\"testname\""),
+            name: String::from("test_name"),
             before: None,
             after: None,
             subject: None,
             containers: vec![Container::Test(Test {
-                name: "\"hoge\"".into(),
+                name: "hoge".into(),
                 container: proc_macro2::TokenStream::new(),
             })],
         };
