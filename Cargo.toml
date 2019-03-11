@@ -6,7 +6,7 @@ edition = "2018"
 description = "write like Rspec testing framework with rust"
 homepage = "https://github.com/k-nasa/ruspec"
 repository = "https://github.com/k-nasa/ruspec"
-license = "LISENCE"
+license = "LICENSE"
 readme = "README.md"
 keywords = [
     "rspec",
