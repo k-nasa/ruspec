@@ -2,9 +2,10 @@ extern crate proc_macro;
 extern crate syn;
 
 use colored::*;
-use proc_macro::TokenStream;
+use proc_macro2::TokenStream;
 use quote::quote;
 use std::str::FromStr;
+use types::DescribeStatement;
 
 mod parser;
 mod types;
@@ -52,7 +53,7 @@ mod types;
 ///```
 ///
 #[proc_macro]
-pub fn ruspec(input: TokenStream) -> TokenStream {
+pub fn ruspec(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = proc_macro2::TokenStream::from(input);
 
     let expanded = match _ruspec(input) {
@@ -63,9 +64,10 @@ pub fn ruspec(input: TokenStream) -> TokenStream {
         }
     };
 
-    TokenStream::from(expanded)
+    proc_macro::TokenStream::from(expanded)
 }
 
 fn _ruspec(input: proc_macro2::TokenStream) -> Result<TokenStream, failure::Error> {
-    failure::bail!("no implement")
+    let describe_statements = parser::Parser::new(input).parse()?;
+    Ok(DescribeStatement::expands(describe_statements))
 }
