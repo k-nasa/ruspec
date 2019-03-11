@@ -6,6 +6,9 @@ use proc_macro::TokenStream;
 use quote::quote;
 use std::str::FromStr;
 
+mod parser;
+mod types;
+
 /// example syntax
 /// ```rust
 /// ruspec! {
