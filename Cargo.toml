@@ -3,6 +3,16 @@ name = "ruspec"
 version = "0.1.0"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
 edition = "2018"
+description = "write like Rspec testing framework with rust"
+homepage = "https://github.com/k-nasa/ruspec"
+repository = "https://github.com/k-nasa/ruspec"
+license = "LISENCE"
+readme = "README.md"
+keywords = [
+    "rspec",
+    "test",
+]
+
 
 [dependencies]
 syn = { version = "0.15.28", features = ["full"] }
