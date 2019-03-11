@@ -204,10 +204,7 @@ mod tests {
     extern crate syn;
 
     use crate::parser::Parser;
-    use crate::ruspec;
     use crate::types::{Container, DescribeStatement, Test};
-    use proc_macro::TokenStream;
-    use quote::quote;
     use std::str::FromStr;
 
     #[test]

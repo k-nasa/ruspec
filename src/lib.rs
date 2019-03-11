@@ -3,8 +3,6 @@ extern crate syn;
 
 use colored::*;
 use proc_macro2::TokenStream;
-use quote::quote;
-use std::str::FromStr;
 use types::DescribeStatement;
 
 mod parser;
