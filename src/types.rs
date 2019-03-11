@@ -64,7 +64,7 @@ impl DescribeStatement {
     }
 
     fn expand_containers(
-        containers: &Vec<Container>,
+        containers: &[Container],
         before: TokenStream,
         after: TokenStream,
         subject: TokenStream,
