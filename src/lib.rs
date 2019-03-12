@@ -133,4 +133,26 @@ mod tests {
         assert_eq!(output.to_string(), expected.to_string())
     }
 
+    #[test]
+    fn should_context_is_aliase_describe() {
+        let input = quote! {
+            context "hoge" {
+                it "hoge" {
+                    assert!(true);
+                }
+            }
+        };
+
+        let expected = quote! {
+            mod hoge {
+                #[test]
+                fn hoge() {
+                    assert!(true);
+                }
+            }
+        };
+
+        let output = crate::_ruspec(input).unwrap();
+        assert_eq!(output.to_string(), expected.to_string())
+    }
 }
