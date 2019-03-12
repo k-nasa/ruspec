@@ -55,4 +55,29 @@ mod tests {
         let output = crate::_ruspec(input).unwrap();
         assert_eq!(output.to_string(), expected.to_string())
     }
+
+    #[test]
+    fn should_expand_before() {
+        let input = quote! {
+            describe "hoge" {
+                before { let hoge = 1234; }
+                it "hoge" {
+                    assert!(true);
+                }
+            }
+        };
+
+        let expected = quote! {
+            mod hoge {
+                #[test]
+                fn hoge() {
+                    let hoge = 1234;
+                    assert!(true);
+                }
+            }
+        };
+
+        let output = crate::_ruspec(input).unwrap();
+        assert_eq!(output.to_string(), expected.to_string())
+    }
 }
