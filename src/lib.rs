@@ -164,9 +164,9 @@ mod tests {
         };
 
         let output = _ruspec(input);
-        let e = output.err().unwrap();
-
         assert!(output.is_err());
+
+        let e = output.err().unwrap();
         assert_eq!(
             format!("{}", e),
             "not found expected keyword (it subject before after)"
@@ -182,9 +182,9 @@ mod tests {
         };
 
         let output = _ruspec(input);
-        let e = output.err().unwrap();
-
         assert!(output.is_err());
+
+        let e = output.err().unwrap();
         assert_eq!(format!("{}", e), "not found expected describe string");
     }
 
@@ -197,9 +197,9 @@ mod tests {
         };
 
         let output = _ruspec(input);
-        let e = output.err().unwrap();
-
         assert!(output.is_err());
+
+        let e = output.err().unwrap();
         assert_eq!(format!("{}", e), "not found expected it string");
     }
 }
