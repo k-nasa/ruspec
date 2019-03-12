@@ -1,5 +1,6 @@
 use self::Keyword::*;
 use crate::types::{Callbacks, Container, DescribeStatement, Test};
+use failure::{bail, Error};
 use inflector::cases::snakecase::to_snake_case;
 use proc_macro2::{TokenStream, TokenTree};
 
@@ -28,7 +29,7 @@ impl Parser {
         }
     }
 
-    pub fn parse(&mut self) -> Result<DescribeStatements, failure::Error> {
+    pub fn parse(&mut self) -> Result<DescribeStatements, Error> {
         let mut statements: DescribeStatements = Vec::new();
 
         while self
@@ -41,13 +42,13 @@ impl Parser {
             let keyword = if let Some(TokenTree::Ident(ident)) = self.clone().current_token {
                 Keyword::from(ident.to_string())
             } else {
-                failure::bail!("not found keyword in parse")
+                bail!("not found keyword in parse")
             };
 
             let statement = match keyword {
                 DESCRIBE => self.parse_describe_statement()?,
                 _ => {
-                    failure::bail!("not found expected describe keyword");
+                    bail!("not found expected describe keyword");
                 }
             };
 
@@ -57,7 +58,7 @@ impl Parser {
         Ok(statements)
     }
 
-    fn parse_containers(&mut self) -> Result<Containers, failure::Error> {
+    fn parse_containers(&mut self) -> Result<Containers, Error> {
         let mut containers: Containers = Vec::new();
         while self
             .input
@@ -69,13 +70,13 @@ impl Parser {
             let keyword = if let Some(TokenTree::Ident(ident)) = self.clone().current_token {
                 Keyword::from(ident.to_string())
             } else {
-                failure::bail!("not found keyword in parse_containers")
+                bail!("not found keyword in parse_containers")
             };
 
             let container = match keyword {
                 DESCRIBE => Container::Describe(self.parse_describe_statement()?),
                 IT => Container::Test(self.parse_it_statement()?),
-                _ => failure::bail!("not found expected describe keyword"),
+                _ => bail!("not found expected describe keyword"),
             };
 
             containers.push(container);
@@ -85,37 +86,37 @@ impl Parser {
         Ok(containers)
     }
 
-    fn parse_it_statement(&mut self) -> Result<Test, failure::Error> {
+    fn parse_it_statement(&mut self) -> Result<Test, Error> {
         self.next_token();
 
         let name = if let Some(TokenTree::Literal(literal)) = self.clone().current_token {
             to_snake_case(&literal.to_string())
         } else {
-            failure::bail!("not found expected it string")
+            bail!("not found expected it string")
         };
 
         let container = if let Some(TokenTree::Group(group)) = self.clone().peek_token {
             group.stream()
         } else {
-            failure::bail!("not found expected it block")
+            bail!("not found expected it block")
         };
         self.next_token();
 
         Ok(Test { name, container })
     }
 
-    fn parse_describe_statement(&mut self) -> Result<DescribeStatement, failure::Error> {
+    fn parse_describe_statement(&mut self) -> Result<DescribeStatement, Error> {
         self.next_token();
         let name = if let Some(TokenTree::Literal(literal)) = self.clone().current_token {
             to_snake_case(&literal.to_string())
         } else {
-            failure::bail!("not found expected describe string")
+            bail!("not found expected describe string")
         };
 
         let stream = if let Some(TokenTree::Group(group)) = self.clone().peek_token {
             group.stream()
         } else {
-            failure::bail!("not found expected describe block")
+            bail!("not found expected describe block")
         };
 
         let mut parser = Self::new(stream);
@@ -134,14 +135,11 @@ impl Parser {
         ))
     }
 
-    fn parse_callback_statement(
-        &mut self,
-        callbacks: &mut Callbacks,
-    ) -> Result<(), failure::Error> {
+    fn parse_callback_statement(&mut self, callbacks: &mut Callbacks) -> Result<(), Error> {
         let keyword = if let Some(TokenTree::Ident(ident)) = self.clone().current_token {
             Keyword::from(ident.to_string())
         } else {
-            failure::bail!("not found expected keyword (it subject before after)")
+            bail!("not found expected keyword (it subject before after)")
         };
         if keyword == AFTER || keyword == BEFORE || keyword == SUBJECT {
             self.next_token();
@@ -149,7 +147,7 @@ impl Parser {
             let stream = if let Some(TokenTree::Group(group)) = self.clone().current_token {
                 group.stream()
             } else {
-                failure::bail!("not found expected keyword")
+                bail!("not found expected keyword")
             };
 
             match keyword {
