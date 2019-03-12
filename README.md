@@ -7,7 +7,7 @@
 
 Add your Cargo.toml
 ```
-ruspec = "0.1.0"
+ruspec = "0.1.1"
 ```
 
 import ruspec!
