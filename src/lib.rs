@@ -155,4 +155,51 @@ mod tests {
         let output = crate::_ruspec(input).unwrap();
         assert_eq!(output.to_string(), expected.to_string())
     }
+
+    #[test]
+    fn should_parse_error_when_not_include_it() {
+        let input = quote! {
+            describe "hoge" {
+            }
+        };
+
+        let output = _ruspec(input);
+        let e = output.err().unwrap();
+
+        assert!(output.is_err());
+        assert_eq!(
+            format!("{}", e),
+            "not found expected keyword (it subject before after)"
+        );
+    }
+
+    #[test]
+    fn should_parse_error_when_not_include_describe_str() {
+        let input = quote! {
+            describe {
+                it "hoge" {}
+            }
+        };
+
+        let output = _ruspec(input);
+        let e = output.err().unwrap();
+
+        assert!(output.is_err());
+        assert_eq!(format!("{}", e), "not found expected describe string");
+    }
+
+    #[test]
+    fn should_parse_error_when_not_include_it_str() {
+        let input = quote! {
+            describe "hoge" {
+                it {}
+            }
+        };
+
+        let output = _ruspec(input);
+        let e = output.err().unwrap();
+
+        assert!(output.is_err());
+        assert_eq!(format!("{}", e), "not found expected it string");
+    }
 }
