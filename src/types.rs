@@ -42,7 +42,7 @@ impl DescribeStatement {
     pub fn expand(&self) -> TokenStream {
         let mod_name = Ident::new(&self.name, Span::call_site());
         let before = self.before.clone().unwrap_or_default();
-        let after = self.before.clone().unwrap_or_default();
+        let after = self.after.clone().unwrap_or_default();
 
         let subject = if let Some(subject) = self.subject.clone() {
             quote! {
