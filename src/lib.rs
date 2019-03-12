@@ -27,3 +27,32 @@ fn _ruspec(input: proc_macro2::TokenStream) -> Result<TokenStream, failure::Erro
     let describe_statements = parser::Parser::new(input).parse()?;
     Ok(DescribeStatement::expands(describe_statements))
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::_ruspec;
+    use quote::quote;
+
+    #[test]
+    fn should_output_expected_stream() {
+        let input = quote! {
+            describe "hoge" {
+                it "hoge" {
+                    assert!(true);
+                }
+            }
+        };
+
+        let expected = quote! {
+            mod hoge {
+                #[test]
+                fn hoge() {
+                    assert!(true);
+                }
+            }
+        };
+
+        let output = crate::_ruspec(input).unwrap();
+        assert_eq!(output.to_string(), expected.to_string())
+    }
+}
