@@ -105,4 +105,32 @@ mod tests {
         let output = crate::_ruspec(input).unwrap();
         assert_eq!(output.to_string(), expected.to_string())
     }
+
+    #[test]
+    fn should_expand_subject() {
+        let input = quote! {
+            describe "hoge" {
+                subject { true }
+                it "hoge" {
+                    assert!(subject);
+                }
+            }
+        };
+
+        let expected = quote! {
+            mod hoge {
+                #[test]
+                fn hoge() {
+                    // FIXME Expected code is
+                    // assert!(true)
+                    let subject = (true);
+                    assert!(subject);
+                }
+            }
+        };
+
+        let output = crate::_ruspec(input).unwrap();
+        assert_eq!(output.to_string(), expected.to_string())
+    }
+
 }
