@@ -157,6 +157,43 @@ mod tests {
     }
 
     #[test]
+    fn should_parse_conplex_describe() {
+        let input = quote! {
+            context "hoge" {
+                before { let hoge = 1; }
+                after { let fug = 1; }
+                it "hoge" {
+                    assert!(true);
+                }
+
+                it "fug" {
+                    assert!(true);
+                }
+            }
+        };
+
+        let expected = quote! {
+            mod hoge {
+                #[test]
+                fn hoge() {
+                    let hoge = 1;
+                    assert!(true);
+                    let fug = 1;
+                }
+                #[test]
+                fn fug() {
+                    let hoge = 1;
+                    assert!(true);
+                    let fug = 1;
+                }
+            }
+        };
+
+        let output = crate::_ruspec(input).unwrap();
+        assert_eq!(output.to_string(), expected.to_string())
+    }
+
+    #[test]
     fn should_parse_error_when_not_include_it() {
         let input = quote! {
             describe "hoge" {
