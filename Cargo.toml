@@ -8,10 +8,8 @@ homepage = "https://github.com/k-nasa/ruspec"
 repository = "https://github.com/k-nasa/ruspec"
 license-file = "LICENSE"
 readme = "README.md"
-keywords = [
-    "rspec",
-    "test",
-]
+categories = ["development-tools::testing"]
+keywords = ["rspec", "test", "testing", "ruspec", ]
 
 
 [dependencies]
