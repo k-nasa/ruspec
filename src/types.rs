@@ -58,6 +58,9 @@ impl DescribeStatement {
 
         quote! {
             mod #mod_name {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #containers
             }
         }

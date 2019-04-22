@@ -45,6 +45,9 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #[test]
                 fn hoge() {
                     assert!(true);
@@ -69,6 +72,8 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
                 #[test]
                 fn hoge() {
                     let hoge = 1234;
@@ -94,6 +99,9 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #[test]
                 fn hoge() {
                     assert!(true);
@@ -119,6 +127,9 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #[test]
                 fn hoge() {
                     // FIXME Expected code is
@@ -145,6 +156,9 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #[test]
                 fn hoge() {
                     assert!(true);
@@ -174,6 +188,9 @@ mod tests {
 
         let expected = quote! {
             mod hoge {
+                #[allow(unused_imports)]
+                use super::*;
+
                 #[test]
                 fn hoge() {
                     let hoge = 1;
