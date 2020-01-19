@@ -1,4 +1,3 @@
-use async_std::task;
 use ruspec::ruspec;
 
 ruspec! {
@@ -7,14 +6,6 @@ ruspec! {
         subject { context + 5 }
 
         it "test name" {
-            task::block_on( async {
-                async fn say_hello() {
-                    println!("Hello, world!");
-                }
-
-                say_hello().await;
-            });
-
             assert_eq!(subject, 10);
         }
     }
