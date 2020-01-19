@@ -22,19 +22,19 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/.cargo/registry
-        key: ${{ runner.os }}-${{ runner.rust }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+        key: ${{ runner.os }}-${{ runner.rust }}-cargo-registry-${{ hashFiles('**/Cargo.toml') }}
 
     - name: Cache cargo index
       uses: actions/cache@v1
       with:
         path: ~/.cargo/git
-        key: ${{ runner.os }}-${{ runner.rust }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+        key: ${{ runner.os }}-${{ runner.rust }}-cargo-index-${{ hashFiles('**/Cargo.toml') }}
 
     - name: Cache cargo build
       uses: actions/cache@v1
       with:
         path: target
-        key: ${{ runner.os }}-${{ runner.rust }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+        key: ${{ runner.os }}-${{ runner.rust }}-cargo-build-target-${{ hashFiles('**/Cargo.toml') }}
 
     - name: build
       run: cargo build
