@@ -1,7 +1,6 @@
 # ruspec - write like Rspec testing framework with rust
 
 [![crate-name at crates.io](https://img.shields.io/crates/v/ruspec.svg)](https://crates.io/crates/ruspec)
-[![CircleCI](https://circleci.com/gh/k-nasa/ruspec.svg?style=svg)](https://circleci.com/gh/k-nasa/ruspec)
 
 ## how to use 
 
