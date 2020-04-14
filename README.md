@@ -2,19 +2,22 @@
 
 [![crate-name at crates.io](https://img.shields.io/crates/v/ruspec.svg)](https://crates.io/crates/ruspec)
 
-## how to use 
+## how to use
 
 Add your Cargo.toml
+
 ```
 ruspec = "0.1.3"
 ```
 
 import ruspec!
+
 ```
 use ruspec::ruspec;
 ```
 
-## Example syntax 
+## Example syntax
+
 ```rust
 use ruspec::ruspec;
 

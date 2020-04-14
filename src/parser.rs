@@ -1,7 +1,6 @@
 use self::Keyword::*;
 use crate::types::{Callbacks, Container, DescribeStatement, Test};
 use failure::{bail, Error};
-use inflector::cases::snakecase::to_snake_case;
 use proc_macro2::{TokenStream, TokenTree};
 
 type DescribeStatements = Vec<DescribeStatement>;
@@ -171,6 +170,24 @@ impl Parser {
         self.current_token = self.peek_token.clone();
         self.peek_token = self.input.clone().into_iter().nth(peek_position);
     }
+}
+
+// use inflector::cases::snakecase::to_snake_case;
+fn to_snake_case(s: &str) -> String {
+    s.to_ascii_lowercase()
+        .split_whitespace()
+        .collect::<Vec<&str>>()
+        .join("_")
+        .trim_matches('"')
+        .to_string()
+}
+
+#[test]
+fn test_to_snake_case() {
+    let s = "Hoge Hoge HOGE hoge";
+    let expect = "hoge_hoge_hoge_hoge";
+
+    assert_eq!(to_snake_case(s), expect.to_string())
 }
 
 #[derive(PartialEq, Debug)]
