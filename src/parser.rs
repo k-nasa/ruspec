@@ -1,7 +1,6 @@
 use self::Keyword::*;
 use crate::types::{Callbacks, Container, DescribeStatement, Test};
 use failure::{bail, Error};
-use inflector::cases::snakecase::to_snake_case;
 use proc_macro2::{TokenStream, TokenTree};
 
 type DescribeStatements = Vec<DescribeStatement>;

@@ -18,7 +18,6 @@ proc-macro2 = "1.0.10"
 quote = "1.0.3"
 failure = "0.1.7"
 colored = "1.9.3"
-Inflector = "0.11.4"
 
 [lib]
 proc_macro = true
