@@ -17,7 +17,7 @@ syn = { version = "1.0.17", features = ["full"] }
 proc-macro2 = "1.0.10"
 quote = "1.0.3"
 failure = "0.1.7"
-colored = "1.9.3"
+colored = "2.0.0"
 
 [lib]
 proc_macro = true
