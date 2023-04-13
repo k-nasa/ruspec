@@ -13,7 +13,7 @@ keywords = ["rspec", "test", "testing", "ruspec", ]
 
 
 [dependencies]
-syn = { version = "1.0.17", features = ["full"] }
+syn = { version = "2.0.15", features = ["full"] }
 proc-macro2 = "1.0.10"
 quote = "1.0.3"
 failure = "0.1.7"
